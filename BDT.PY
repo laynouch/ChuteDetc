@@ -1,4 +1,3 @@
-
 import pandas as pd
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.ensemble import RandomForestClassifier
@@ -34,13 +33,10 @@ print(train_df.head())
 print(test_df.head())
 print(f"Training data shape: {train_df.shape}\nTest data shape: {test_df.shape}")
 
-
 X_train = train_df.drop(['fall','label'],axis=1)
 y_train = train_df['fall']
 X_test =  test_df.drop(['fall','label'],axis=1)
 y_test =  test_df['fall']
-
-
 
 def make_mi_scores(X, y):
     mi_scores = mutual_info_regression(X, y, discrete_features=False)
@@ -62,14 +58,6 @@ plt.figure(dpi=100, figsize=(8, 5))
 plt.xlabel("Score")
 plt.ylabel("Feature")
 plot_utility_scores(mi_scores)
-
-
-
-
-
-
-
-
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import GradientBoostingClassifier
