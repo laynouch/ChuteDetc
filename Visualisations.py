@@ -23,8 +23,8 @@ for dirname, _, filenames in os.walk('/kaggle/input'):
     for filename in filenames:
         print(os.path.join(dirname, filename))
 
-train_df = pd.read_csv("C:/Users/Lina/Desktop/Machine Learning/Train.csv")
-test_df = pd.read_csv('C:/Users/Lina/Desktop/Machine Learning/Test.csv')
+train_df = pd.read_csv("C:/Users/dawou/OneDrive/Bureau/ML/ChuteDetc/Train.csv")
+test_df = pd.read_csv('C:/Users/dawou/OneDrive/Bureau/ML/ChuteDetc/Test.csv')
 train_df.drop(['Unnamed: 0'], axis = 1, inplace = True)
 test_df.drop(['Unnamed: 0'], axis = 1, inplace = True)
 

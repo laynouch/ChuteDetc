@@ -75,6 +75,7 @@ history = final_model.fit(X_train, y_train,
 
 def evaluate(model, test_features, test_labels):
     predictions = (model.predict(test_features) > 0.5).astype("int32")
+    predictions = np.ravel(predictions)  # Ensure predictions is a 1D array
     accuracy = ((predictions == test_labels).sum() / test_labels.shape[0]) * 100
     print('Performance du modèle')
     print('Précision = {:0.2f}%.'.format(accuracy))
@@ -82,3 +83,25 @@ def evaluate(model, test_features, test_labels):
 
 accuracy = evaluate(final_model, X_test, y_test)
 print(f"La meilleure précision obtenue est : {accuracy:.2f}%.")
+
+import tensorflow as tf
+import os
+
+# Define the directory and file path to save the model
+save_path = 'C:/Users/dawou/OneDrive/Bureau/ML/ChuteDetc/saved_model.h5'
+
+# Save the Sequential model in HDF5 format
+final_model.save(save_path)
+
+# Convert the saved HDF5 model to TensorFlow Lite format
+converter = tf.lite.TFLiteConverter.from_keras_model(final_model)
+tflite_model = converter.convert()
+
+# Define the file path for the TensorFlow Lite model
+tflite_model_path = 'model.tflite'
+
+# Save the TensorFlow Lite model to the specified file path
+with open(tflite_model_path, 'wb') as f:
+    f.write(tflite_model)
+
+print(f"Model has been converted to TensorFlow Lite format and saved as {tflite_model_path}")
