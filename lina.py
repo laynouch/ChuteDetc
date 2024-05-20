@@ -1,6 +1,5 @@
 import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras import layers, models
 from scikeras.wrappers import KerasClassifier
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.preprocessing import StandardScaler
@@ -41,12 +40,12 @@ X_train = scaler.transform(X_train)
 X_test = scaler.transform(X_test)
 
 def create_model(learning_rate=0.01, dropout_rate=0.2):
-    model = Sequential()
-    model.add(Dense(64, input_dim=X_train.shape[1], activation='relu'))
-    model.add(Dropout(dropout_rate))
-    model.add(Dense(32, activation='relu'))
-    model.add(Dropout(dropout_rate))
-    model.add(Dense(1, activation='sigmoid'))
+    model = models.Sequential()
+    model.add(layers.Dense(64, input_dim=X_train.shape[1], activation='relu'))
+    model.add(layers.Dropout(dropout_rate))
+    model.add(layers.Dense(32, activation='relu'))
+    model.add(layers.Dropout(dropout_rate))
+    model.add(layers.Dense(1, activation='sigmoid'))
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
                   loss='binary_crossentropy',
                   metrics=['accuracy'])
@@ -83,9 +82,6 @@ def evaluate(model, test_features, test_labels):
 
 accuracy = evaluate(final_model, X_test, y_test)
 print(f"La meilleure précision obtenue est : {accuracy:.2f}%.")
-
-import tensorflow as tf
-import os
 
 # Define the directory and file path to save the model
 save_path = 'C:/Users/dawou/OneDrive/Bureau/ML/ChuteDetc/saved_model.h5'
